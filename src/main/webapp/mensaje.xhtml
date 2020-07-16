@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 5.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Promedio de Admisión </title>
+            <link href="css/style.css" 
+                  type="text/css" 
+                  rel="stylesheet"/>
+            <link rel="shortcut icon" 
+                  href="images/icono-una.png" 
+                  type="image/x-icon" />
+        </h:head>
+        <h:body>
+            <div>
+                <!--**********************************************************************************************************-->
+                <!--*******************************************   ENCABEZADO    **********************************************-->
+                <!--**********************************************************************************************************-->
+                <div class="header">
+                    <div class="alinear">
+                        <ui:include src="cr.ac.una.reg.info.templates/header.xhtml"/>
+                    </div>
+                </div>       
+                <!--**********************************************************************************************************-->
+                <!--*******************************************     CUERPO     ***********************************************-->
+                <!--**********************************************************************************************************-->
+                <h:form id="formCuerpo">
+                    <div class="alinear">
+                        <br></br>
+                        <center>
+                            <table border="0" 
+                                   width="100%">
+                                <tr>
+                                    <td>
+                                        <ace:panel  visible="true">
+                                            <ace:panel  visible="true"  headerAlign="center"
+                                                        header="AVISO"
+                                                        style="font-weight:bold;font-family: Arial;font-size: 12px;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <h:outputText value="- xxxxxxxxx "/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h:outputText value="- xxxxxxxxx "/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </ace:panel>
+                                        </ace:panel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </h:form>
+
+                <!--**********************************************************************************************************-->
+                <!--****************************************    PIE DE PAGINA  ***********************************************-->
+                <!--**********************************************************************************************************-->
+                <div class="footer">
+                    <ui:include src="cr.ac.una.reg.info.templates/footer.xhtml"/>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>

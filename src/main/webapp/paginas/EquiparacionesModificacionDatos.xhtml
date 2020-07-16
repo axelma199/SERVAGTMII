@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+<div class="entry">
+
+                <h:form id="formSolicitudPapel">
+                                            <div class="section">
+                                                
+                          <ace:tabSet id="sampleTabSet1" clientSide="false" style="align-content:center; "  >
+
+
+                            <ace:tabPane label="Modificar Equiparación " >               
+                                                                       <h:panelGrid id="panelInfoEstudiante" style="border: none; margin: 0;  padding:0;">  
+         
+         <ace:tabSet id="sampleTabSet2" clientSide="false" style="align-content:center; "  >
+
+
+                            <ace:tabPane label="Información del Solicitante" > 
+                                
+                                
+                                <h:panelGrid id="panelInfoEstudiante"    columns="3">  
+                                   
+                                    
+                                    
+   <h:outputLabel value="Equiparacion a Modificar:" /> 
+ <h:inputText id="txt_in_eq" required="true"  value="#{EquiparacionesModDatosController.equiparacionesBean.eqp_sol_numero}" onkeyup="this.value=this.value.toUpperCase();"/>                            
+           
+ <ace:pushButton id="btnBusacar"   value="buscar"/>                                                                                          
+   
+ <h:outputLabel value="Cédula o Pasaporte:" /> 
+ <h:inputText id="txt_in_id" size="30" readonly="true" value="#{EquiparacionesModDatosController.equiparacionesBean.solicitanteBean.solte_id}"/>
+                                                             <h:outputLabel value="  " /> 
+
+    <h:outputLabel value="Nombre completo:" /> 
+ <h:inputText id="txt_in_nombre" size="20" readonly="true" value="#{EquiparacionesModDatosController.equiparacionesBean.solicitanteBean.solte_nombre}"/> 
+                                                                          <h:outputLabel value="  " /> 
+            
+                             <div id="formModDatosEquiparacion:messages" class="ui-messages ui-widget" aria-live="polite"></div> 
+                                </h:panelGrid>
+                            </ace:tabPane>
+                                                    </ace:tabSet>
+                            <br></br>
+                            
+                            
+                            
+                            <ace:tabSet id="sampleTabSet3" clientSide="false" style="align-content:center; "  >
+
+
+                            <ace:tabPane label="Datos Generales de Materias a Equiparar" > 
+                                  <h:panelGrid columns="3" id="panelMaterias">
+                              <h:outputLabel value="Sede a Ingresar:" /> 
+                               
+                              <h:selectOneMenu id="cb_sede_continuar" required="true" value="#{EquiparacionesModDatosController.sedeContinuarSelected}" >
+                                     <f:selectItem itemLabel="OMAR DENGO" itemValue="HO"></f:selectItem>
+                                                        <f:selectItem itemLabel="ALAJUELA" itemValue="SA"></f:selectItem>
+                                                        <f:selectItem itemLabel="COTO" itemValue="BC"></f:selectItem>
+                                                        <f:selectItem itemLabel="PÉREZ ZELEDÓN" itemValue="BP"></f:selectItem>
+                                                        <f:selectItem itemLabel="BENJAMÍN NÚÑEZ" itemValue="HB"></f:selectItem>
+                                                        <f:selectItem itemLabel="LIBERIA" itemValue="CL"></f:selectItem>
+                                                        <f:selectItem itemLabel="NICOYA" itemValue="CN"></f:selectItem>
+                                                        <f:selectItem itemLabel="SARAPIQUÍ" itemValue="HS"></f:selectItem>
+                                    
+                                    </h:selectOneMenu>
+                                               <h:outputLabel value="  " /> 
+                                               
+                     
+                              
+                                    <h:outputLabel value="Facultad a Ingresar:" /> 
+                                   
+                                    <h:selectOneMenu id="cb_facultad_continuar" required="true" value="#{EquiparacionesModDatosController.facultadContinuarSelected}" >
+                                         <f:selectItem itemLabel="Seleccione una Facultad" itemValue="0" />  
+                                        <f:selectItems value="#{EquiparacionesModDatosController.facultadContinuar}" ></f:selectItems>                                     
+                                    </h:selectOneMenu>
+                                   <h:outputLabel value="  " /> 
+                                    <h:outputLabel value="Escuela a Ingresar:"/>
+                                     
+                                    <h:selectOneMenu id="cb_escuela_continuar" required="true" value="#{EquiparacionesModDatosController.escuelaContinuarSelected}" >
+                                         <f:selectItem itemLabel="Seleccione una Escuela" itemValue="0" />  
+                                        <f:selectItems value="#{EquiparacionesModDatosController.escuelaContinuar}" ></f:selectItems>                                     
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="  " /> 
+                                    <h:outputLabel value="Carrera a Ingresar:" />
+                                    
+                                   
+                                    <h:selectOneMenu id="cb_carrera_continuar" required="false" value="#{EquiparacionesModDatosController.equiparacionesBean.eqp_carrera_continuar_est}">
+                                        <f:selectItem itemLabel="Seleccione una Carrera" itemValue="0" />  
+                                        <f:selectItems value="#{EquiparacionesModDatosController.carreraContinuar}"></f:selectItems>
+                                    </h:selectOneMenu>
+                                     <h:outputLabel value="Actual:   #{EquiparacionesModDatosController.equiparacionesBean.eqp_carrera_continuar_est}" />
+                                    <h:outputLabel value="Grado a Ingresar:" />   
+                                     
+                                      <h:selectOneMenu id="cb_grado_continuar" required="true" value="#{EquiparacionesModDatosController.equiparacionesBean.eqp_grado_continuar}">
+                                        <f:selectItems value="#{EquiparacionesModDatosController.gradoContinuar}"></f:selectItems>
+                                    </h:selectOneMenu>
+                                  
+                                    <!-- <h:panelGrid columns="3" >-->
+                                    <h:outputLabel value="Carrera de Procedencia:" />  
+                                     
+                                    <h:inputText value="#{EquiparacionesModDatosController.carreraSelected.car_descripcion}" id="Carrera" readonly="true" size="50"  />
+                                    <h:commandLink id="btnInsertarCarrera"  title="Insertar Nuevo"  style="width: 30px; height: 30px;"  onclick="dialogCarreras.show()"    />
+                                 <!--  </h:panelGrid>-->
+                                   <h:outputLabel value="  " /> 
+                                </h:panelGrid>
+                                
+                               
+                           </ace:tabPane>
+                                                    </ace:tabSet>
+                            <br></br>
+                           
+                            <br></br>
+                            
+                            <ace:dialog  id="dialogCarreras" header="Carreras"  resizable="false" closable="false"  
+                                               width="850" showEffect="clip" hideEffect="fold">
+                                       <ace:dataTable id="tablaCarreras" var="Carreras" value="#{EquiparacionesModDatosController.arrayCarreraExterna}" 
+                                                  emptyMessage="No hay Universidades similares" 
+                                                 selectionMode="single"  
+                                                  filterValue="#{EquiparacionesModDatosController.filtroCarreraExternaDisponible}"
+                                                  paginator="true" rows="5" style="width:550px;"> 
+                                                
+                                                  selection="#{EquiparacionesModDatosController.carreraSelected }"
+                                                 rowKey="#{Carreras.car_id}"
+
+                                                
+                                                     <ace:column filterBy="#{Carreras.car_descripcion}" headerText="Carrera" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                                 <h:outputText id="universidad1" value="#{Carreras.car_descripcion}" style="font-size: 12px" />
+                                                 </ace:column>
+                                                 
+                                           <ace:column filterBy="#{Carreras.universidad.uni_descripcion}" headerText="Univerisidad" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                            <h:outputText id="UniversidadDescripcion" value="#{Carreras.universidad.uni_descripcion}" style="font-size: 12px" />
+                                        </ace:column>
+                                                
+                                                   <ace:column filterBy="#{Carreras.universidad.stvnatn.stvnatn_nation}" headerText="Pais" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                            <h:outputText id="paisUniversidad2" value="#{Carreras.universidad.stvnatn.stvnatn_nation}" style="font-size: 12px" />
+                                        </ace:column>
+                                                
+                                              </ace:dataTable> 
+                                   <f:facet name="footer"> 
+                                                <div align="center">
+                                                    <h:commandLink id="btncerrarCarrera"  value="Aceptar"/>                                                        
+                                                </div>
+                                            </f:facet> 
+                                    </ace:dialog>
+
+                            <div align="right">
+                                <ace:pushButton id="btnActualizar"  action="#{EquiparacionesModDatosController.actualizarEquiparacion()}"  value="Actualizar">
+                                    <!--<f:param name="equiparacion_num" value="#{EquiparacionesModDatosController.equiparacionesBean.eqp_sol_numero}"></f:param>-->                                </ace:pushButton>   
+                            </div>
+                           
+    </h:panelGrid>
+
+</ace:tabPane>
+                                                    </ace:tabSet>
+           
+                                </div>
+                                                   
+                </h:form>
+
+            </div>
+        </div>
+    </h:body> 
+</html>

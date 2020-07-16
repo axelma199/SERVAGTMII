@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+    <div class="entry"> 
+           <h:form id="form">
+
+        <div class="section"> 
+                        <ace:tabSet id="sampleTabSet2" clientSide="false" style="align-content:center; "  >
+
+                        <ace:tabPane label="Universidades">                            
+
+                            <div align="center">
+
+                                <h:panelGrid id="panelgridBitacora" columns="2" cellpadding="5">
+
+                                    
+                                     <ace:dataTable id="tablaRol" var="rolBitacora" value="#{BitacoraSolicitudesController.arrayBitacoraSolicitud}" 
+                                                  emptyMessage="No hay Documentos similares" 
+                                                 selectionMode="single"  
+                                                
+                                                 paginator="true" rows="5" style="width:850px;"> 
+                                         
+                                         
+                                            selection='#{BitacoraSolicitudesController.bitacoraSolicitudSelected}
+                                      filteredValue="#{BitacoraSolicitudesController.filtroDocumentosDisponible}"
+                                                 rowKey="#{rolBitacora.bit_id}"
+                                           <f:facet name="header"> 
+                                      <div align="left"> 
+                                          <h:commandLink  rendered="false" id="btnimprimir" value="Imprimir"  onclick="javascript:window.open('#{BitacoraSolicitudesController.URLReporte}', 'Reporte', 'width=800,height=600');" />
+                                              <h:commandLink    id="btnReporte"     value="Imprimir"  actionListener="#{BitacoraSolicitudesController.GenerarReporte()}"  />  
+                                        </div>
+                                    </f:facet>  
+                                           
+                                         
+                                         
+                                          
+                                         <ace:column filterBy="#{rolBitacora.bit_sol_id}" headerText="Transaccion" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:2"  >
+                                             <h:outputText id="nIDTransaccion" value="#{rolBitacora.bit_sol_id}" style="font-size: 12px" />
+                                        </ace:column>
+
+                                      <ace:column filterBy="#{rolBitacora.bit_fecha}" headerText="Fecha" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="fecha" value="#{rolBitacora.bit_fecha}" style="font-size: 12px" />
+                                        </ace:column>
+                                         
+                                         <ace:column filterBy="#{rolBitacora.usuarioBean.codigo}" headerText="Id de Usuario" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="codUsuario" value="#{rolBitacora.usuarioBean.codigo}" style="font-size: 12px" />
+                                        </ace:column>
+                                         
+                                           <ace:column filterBy="#{rolBitacora.usuarioBean.descripcion}" headerText="Nombre" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="usuarioDescripcion" value="#{rolBitacora.usuarioBean.descripcion}" style="font-size: 12px" />
+                                        </ace:column>
+                                         
+                                              <ace:column filterBy="#{rolBitacora.bit_tipo_mov_desc}" headerText="Tipo de transacción" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="tipoTransaccion" value="#{rolBitacora.bit_tipo_mov_desc}" style="font-size: 12px" />
+                                        </ace:column>
+                                         
+                                       <!--   <p:column filterBy="#{rolBitacora.bit_detalle}" headerText="Detalle" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="detalletransaccion" value="#{rolBitacora.bit_detalle}" style="font-size: 12px" />
+                                        </p:column> -->
+                                           
+                                         
+                                                                      
+
+                                         
+                                    </ace:dataTable> 
+                                 
+                                    </h:panelGrid>
+
+                                </div>
+
+                            </ace:tabPane>
+                                                    </ace:tabSet>
+                                                        </div> 
+
+                </h:form>
+  
+                                 
+                            </div> 
+                    
+                    <h:messages id="messages"/>
+                            <div id="form1:messages" class="ui-messages ui-widget" aria-live="polite"></div> 
+ 
+                    </div>
+
+            
+            
+         
+
+
+                    
+               
+
+      </h:body> 
+</html>

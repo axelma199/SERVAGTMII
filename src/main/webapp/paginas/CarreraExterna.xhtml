@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+
+
+            <div class="entry">
+
+                <h:form id="formSolicitudPapel">
+                                            <div class="section">
+         <ace:tabSet id="sampleTabSet2" clientSide="false" style="align-content:center; "  >
+
+
+                            <ace:tabPane label="Carreras externas" > 
+                                                                <div align="center">
+
+                                    <h:panelGrid id="panelgridestudiante" columns="2" cellpadding="5">
+
+                              <ace:dataTable id="tablaRol" var="rol" value="#{CarreraExternaController.arrayCarreraExterna}"  
+                                                  emptyMessage="No hay Carreras similares" 
+                                                 selectionMode="single"  
+                                                                           
+                                                 
+                                                 paginatorPosition="bottom"
+                                              
+                                                 paginator="true" rows="5" style="width:750px;"> 
+                                  
+                                  <!--filterValue="#{CarreraExternaController.filtroCarreraExternaDisponible}"-->
+                                  <f:facet name="header"> 
+                                            <div align="left"> 
+                                                <ace:pushButton id="btnInsertar" title="Insertar Nuevo"  action="#{CarreraExternaController.mostrarForm}" value="Agregar"   style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;" ></ace:pushButton>                                           <!--icon="ui-icon-document"  update=":form:display"-->
+                                            </div>
+                                        </f:facet>  
+                                          
+                                          
+                                        <ace:column filterBy="#{rol.car_descripcion}" headerText="Carrera" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                            <h:outputText id="carrera1" value="#{rol.car_descripcion}" style="font-size: 12px" />
+                                        </ace:column>
+
+                                        <ace:column filterBy="#{rol.universidad.uni_descripcion}" headerText="Universidad" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                            <h:outputText id="univerisdad1" value="#{rol.universidad.uni_descripcion}" style="font-size: 12px"   />
+                                        </ace:column>
+                                      
+                                       <ace:column filterBy="#{rol.universidad.stvnatn.stvnatn_nation}" headerText="Pais" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                                <h:outputText id="pais1" value="#{rol.universidad.stvnatn.stvnatn_nation}" style="font-size: 12px" />
+                                        </ace:column>
+                                      
+                                       <ace:column style="width:4%">
+                                           <h:commandLink id="btnModificar"   title="Actualizar"   action="#{CarreraExternaController.mostrarFormActualizar()}"    value="Actualizar"  style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                                                <f:setPropertyActionListener value="#{rol}" target="#{CarreraExternaController.carreraSelected}" />  
+                                                <f:setPropertyActionListener value="#{2}" target="#{CarreraExternaController.p_opcion}" />  
+                                            </h:commandLink>  
+                                        </ace:column> 
+
+                                        <ace:column style="width:4%">  
+                                            <h:commandLink id="btnEliminar2"     value="Eliminar" title="Eliminar" action="#{CarreraExternaController.mostrarFormEliminar()}"  style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                                                <f:setPropertyActionListener value="#{rol}" target="#{CarreraExternaController.carreraSelected}" />  
+                                            </h:commandLink>  
+                                        </ace:column>  
+                                        
+                                      </ace:dataTable> 
+             </h:panelGrid>
+
+                                </div>
+
+                            </ace:tabPane>
+                                                    </ace:tabSet>
+                            
+
+                                        <ace:dialog  id="dialog" header="Información de Carrera" resizable="false"  
+                                               width="800" showEffect="clip" hideEffect="fold" closable="false"
+                                    modal="true"      visible="#{CarreraExternaController.visibleAgregarCarrera}"      >  
+
+                                        <h:panelGrid id="display"  cellpadding="4" columns="3"  > 
+                                            <h:outputLabel  value="Carrera:" for="carrera"/>
+                                            <h:inputText value="#{CarreraExternaController.carreraSelected.car_descripcion}" id="carrera" size="50" maxlength="60" onkeyup="this.value=this.value.toUpperCase();" />
+                                                <h:outputLabel  value=""/>
+                                            <h:outputLabel value="Universidad:" for="universidad"/>  
+                                            <h:inputText value="#{CarreraExternaController.universidad}" id="universidad2"  size="50" maxlength="60" onkeyup="this.value=this.value.toUpperCase();" readonly="true"  />
+                                            <ace:pushButton id="btnInsertar"  title="Insertar Nuevo"  action="#{CarreraExternaController.mostrarUniversidades()}"     value="Cargar"/>
+
+                                            
+                                            <!--<h:inputText value="#{CarreraExternaController.carreraSelected.universidad.uni_descripcion}" id="universidad" readonly="true" size="50"  />-->
+                                            <f:facet name="footer"> 
+                                                <div align="right">
+                                                    <ace:pushButton id="btnAcepta"   action="#{CarreraExternaController.add()}"  value="Guardar"/>                                                        
+                                                </div>
+                                                  <div align="left">
+                                                    <ace:pushButton id="btnSalir"     action="#{CarreraExternaController.cerrarFormAgregar}" value="Regresar"/>                                                        
+                                               </div>
+                                                 <h:messages id="messages1" showDetail="true"    style="#{CarreraExternaController.colorMensage}"  />            
+                                            </f:facet> 
+                                        </h:panelGrid>  
+                                    </ace:dialog>
+                                            
+                                             
+                                                
+                                                
+                        
+                                                
+                                                
+               <ace:dialog  id="dialogUniversidad" header="Universidades"  resizable="false"  
+                                             modal="true"  width="800" showEffect="clip" hideEffect="fold"
+                                               visible="#{CarreraExternaController.visibleAgregarUniversidades}">
+                                        <h:panelGrid id="panelgridUniversidad" columns="2" cellpadding="5">
+                                           
+                                            
+                     <ace:dataTable id="tablaRol2" var="Univ" value="#{CarreraExternaController.arrayUniversidades}"  
+                                                              emptyMessage="No hay Universidades similares" 
+                                                              selectionMode="multiple"  
+                                                              paginator="true" rows="5" style="width:750px;"
+                                                              rowSelectListener="#{CarreraExternaController.selectListener}"
+                                                        filterValue="#{CarreraExternaController.filtroUniversidadDisponible}" 
+                                                      paginatorPosition="bottom" > 
+                                                 
+                                                  
+                                      <ace:column filterBy="#{Univ.uni_descripcion}" headerText="Universidad" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  
+                                                  >
+                                            <h:outputText id="universidad1"     value="#{Univ.uni_descripcion}" style="font-size: 12px" />
+                                      
+                                      </ace:column>
+                                                 
+                                           <ace:column filterBy="#{Univ.stvnatn.stvnatn_nation}" headerText="Pais" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                            <h:outputText id="paisUniversidad2" value="#{Univ.stvnatn.stvnatn_nation}" style="font-size: 12px" />
+                                        </ace:column>
+                                                 
+                                            </ace:dataTable> 
+                                            
+                                            
+                                              <f:facet name="footer"> 
+                                                <div align="center">
+                                                    <ace:pushButton id="btncerraruniversidad"  actionListener="#{CarreraExternaController.seleccionaUniversidad()}"   value="Aceptar"/>                                                        
+                                                  <h:messages id="messages2" showDetail="true"    style="#{CarreraExternaController.colorMensage}"  />            
+
+                                                </div>
+                                            </f:facet> 
+                                            
+                                          
+                                                 
+                                                 
+                                          
+                                            
+                                        </h:panelGrid>
+                                    </ace:dialog>
+                                                
+                                                
+                <ace:dialog  id="dialogoConfirmacion" header="Mensaje"  resizable="false"  
+                                          modal="true"           width="700" showEffect="clip" hideEffect="fold" closable="false"
+                                                     visible="#{CarreraExternaController.visibleEliminarCarrera}"   >  
+
+                                               
+                <h:form id="inputForm">
+                                        <div align="center">
+
+                         <h:outputLabel id="firstNameLabel" for="firstNameInputField" value="Está seguro que desea eliminar el registro?"/>
+                        
+                     </div>
+
+                       <div align="center">
+
+                        <ace:pushButton id="submitBtn"
+                                        value="Sí" action="#{CarreraExternaController.eliminar()}"  >
+                            <ace:ajax execute="@form" render="@all"    />
+                        </ace:pushButton>
+                        
+                           <ace:pushButton id="submitBtn2"  value="No" action="#{CarreraExternaController.accionCancelarFormEliminar()}" >
+                            <ace:ajax execute="@form" render="@all"   />
+                        </ace:pushButton>
+                    </div>
+                                                  <h:messages id="messages3" showDetail="true"    style="#{CarreraExternaController.colorMensage}"  />            
+
+                </h:form>
+
+                </ace:dialog> 
+                                        
+                                        
+                        
+                                </div>
+
+                </h:form>
+
+            </div>
+        </div>
+ 
+    </h:body> 
+</html>

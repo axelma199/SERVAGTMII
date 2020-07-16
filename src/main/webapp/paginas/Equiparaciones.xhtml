@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+
+
+        <div class="entry">
+                <h:form id="form">
+ 
+                        <div class="section">
+                        <ace:tabSet id="sampleTabSet2" clientSide="false" style="align-content:center; "  >
+
+
+                            <ace:tabPane label="Datos personales" > 
+                                <div align="center">
+                                
+                                
+                                <h:panelGrid id="panelInfoEstudiante" columns="2" cellpadding="4">
+                                <ace:row>
+                                    <ace:column>
+                                        <h:outputLabel  value="Identificación:"/>
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:inputText value="#{EquiparacionController.solicitanteBean.solte_id}" id="id"/>
+                                    </ace:column>
+                                     <ace:column >
+                                        <h:commandLink id="btnBuscarSpriden" action="#{EquiparacionController.buscarSolicitante()}"  title="Buscar en Banner"  style="width: 30px; height: 30px; margin-top: 10px;" />
+                                    </ace:column>
+                                </ace:row>
+
+                                <ace:row>
+                                    <ace:column>
+                                        <h:outputLabel value="Nombre:"/>
+                                    </ace:column> 
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:inputText value="#{EquiparacionController.solicitanteBean.solte_nombre}" id="nombre" size="35"/>  
+                                    </ace:column>
+                                </ace:row>                                         
+                                <ace:row>
+                                    <ace:column>
+                                        <h:outputLabel for="direccion" value="Dirección:" />
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:inputTextarea value="#{EquiparacionController.solicitanteBean.solte_direccion}" id="direccion" cols="40" />  
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:outputLabel for="telefono" value="Teléfono:"/>
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:inputText value="#{EquiparacionController.solicitanteBean.solte_telefono}" id="telefono" /> 
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:outputLabel for="email" value="E-mail:"/>
+                                    </ace:column>
+                                </ace:row>
+                                <ace:row>
+                                    <ace:column>
+                                        <h:inputText value="#{EquiparacionController.solicitanteBean.solte_email}" id="email" />
+                                    </ace:column>
+                                </ace:row>                                
+                            </h:panelGrid> 
+ 
+                                            </div>
+
+                            </ace:tabPane>
+                                                    </ace:tabSet>
+                                    <br></br>
+                                    
+                                  
+                                    
+                            
+       <ace:tabSet id="sampleTabSet3" clientSide="false" style="align-content:center; "  >
+ 
+                            <ace:tabPane label="Datos generales de materia a equiparar" > 
+                                <div align="center">
+                                
+                                <h:panelGrid columns="2" cellpadding="5">  
+
+                                    <h:outputLabel value="Facultad a continuar" />                                
+                                    <h:selectOneMenu id="cb_facultad_continuar" required="true"  value="#{EquiparacionController.facultadContinuarSelected}"  >
+                                         <ace:ajax event="change"     />
+                                        <f:selectItem itemLabel="Seleccione una Facultad" itemValue="0" />
+                                  
+	<f:selectItem itemValue="Ciencias Sociales" itemLabel="Ciencias Sociales" />
+	<f:selectItem itemValue="Ciencias Exactas y Naturales" itemLabel="Ciencias Exactas y Naturales" />
+	<f:selectItem itemValue="Filosofia y letras" itemLabel="Filosofia y letras" />
+        
+                                    </h:selectOneMenu> 
+                                    
+                                    
+                                    <h:outputLabel value="Escuela a Continuar:" />                                
+                                    <h:selectOneMenu id="cb_escuela_continuar" required="true" value="#{EquiparacionController.escuelaContinuarSelected}" >
+                                        <ace:ajax event="change"     />
+                                        <f:selectItem itemLabel="Seleccione una Escuela" itemValue="0" />                                                                        
+                                 
+                                    
+	<f:selectItem itemValue="Matematica" itemLabel="Matematica" />
+	<f:selectItem itemValue="Administración" itemLabel="Administración" />
+	<f:selectItem itemValue="Filosofía" itemLabel="Filosofía" /> 
+                                    </h:selectOneMenu>
+                                    
+                                     <h:outputLabel value="Carrera a Continuar:" />                                
+                                     <h:selectOneMenu id="cb_carrera_continuar" required="true"  value="#{EquiparacionController.carreraContinuarSelected}" >                                   
+                                        <f:selectItem itemLabel="Seleccione una Carrera" itemValue="0" />                                   
+                                   
+                                    
+	<f:selectItem itemValue="Enseñanza de la Matematica" itemLabel="Enseñanza de la Matematica" />
+	<f:selectItem itemValue="Administración" itemLabel="Administración" />
+	<f:selectItem itemValue="Filosofía" itemLabel="Filosofía" /> 
+                                    </h:selectOneMenu>
+                                    
+                                      <h:outputLabel value="Grado a Continuar" />                                
+                                    <h:selectOneMenu id="cb_grado_continuar" required="true"  value="#{EquiparacionController.gradoContinuarSelected}" >
+                                        <f:selectItem itemLabel="Seleccione el grado" itemValue="0" />  
+                                  
+                                        
+	<f:selectItem itemValue="Diplomado" itemLabel="Diplomado" />
+         <f:selectItem itemValue="Profesorado" itemLabel="Profesorado" />
+	<f:selectItem itemValue="Bachillerato" itemLabel="Bachillerato" />
+	<f:selectItem itemValue="Licenciatura" itemLabel="Licenciatura" /> 
+                                    </h:selectOneMenu>
+                                  f:selectItems value="" /f:selectItems 
+
+                                </h:panelGrid> 
+           
+                                     </div> 
+                            </ace:tabPane> 
+                                 </ace:tabSet>
+                                       <br></br>
+                                       
+                                       
+                                 
+                                       
+                                       
+  <ace:tabSet id="sampleTabSet4" clientSide="false" style="align-content:center; "  >
+ 
+                            <ace:tabPane label="Revisión de documentos" > 
+                                <div align="center">
+                                    
+                                    
+                                      <ace:dataTable var="Documentos" value="#{EquiparacionController.arrayDocumentos}" 
+                    
+                                             id="tblDocumentos" >
+                                    <f:facet name="header">  
+                                        Lista de Documentos a Entregar
+                                    </f:facet>  
+                                    <ace:column headerText="Descripcion del documento" >  
+                                        #{Documentos.doc_descripcion}  
+                                    </ace:column> 
+                                    <ace:column headerText="Verificado">
+                                        <div align="center">
+                                            <h:selectBooleanCheckbox value="#{Documentos.doc_eqv}">  
+                                            </h:selectBooleanCheckbox>
+                                        </div>
+                                    </ace:column>                              
+                                </ace:dataTable>  
+                             <br></br>
+                            <div align="right">
+                                <ace:pushButton id="btnSiguiente" value="Siguiente" action="#{EquiparacionController.guardaEquiparacion()}"/>
+                            </div>
+                             
+                       
+                                     </div> 
+                            </ace:tabPane> 
+                                 </ace:tabSet>
+                                       <br></br>
+                                       
+
+             
+          
+                                       
+                                       
+                                       
+                                    
+             </div>
+
+ 
+
+
+                </h:form>
+
+            </div>
+                    </div>
+
+     </h:body> 
+</html>

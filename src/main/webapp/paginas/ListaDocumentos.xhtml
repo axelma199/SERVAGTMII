@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+
+
+            <div class="entry">
+                <h:form id="form">
+
+             
+                        <div class="section">
+                        <ace:tabSet id="sampleTabSet2" clientSide="false" style="align-content:center; "  >
+
+                            <ace:tabPane label="Documentos" > 
+                                <div align="center">
+
+                          <h:panelGrid id="panelgridDocumentos" columns="2" cellpadding="5">
+
+
+                                <ace:dataTable id="tablaRol" var="rol" value="#{DocumentosController.listaDocumentos}"  
+                                                  emptyMessage="No hay Documentos similares" 
+                                                 selectionMode="single"  
+                                                                               paginatorPosition="bottom"
+                                    filterValue="#{DocumentosController.filtroDocumentosDisponible}"
+
+                                                 paginator="true" rows="5" style="width:750px;"> 
+                                 
+                                     
+                                                 rowKey="#{rol.doc_id}"
+                                    
+                                       <f:facet name="header"> 
+                                        <div align="left"> 
+                                            <ace:pushButton id="btnInsertar"  title="Insertar Nuevo" value="Agregar"   style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;"  action="#{DocumentosController.abrirForm()}"  />
+                                        </div>
+                                    </f:facet>  
+                                    
+                                    <ace:column filterBy="#{rol.doc_id}" headerText="ID Documento" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                        <h:outputText id="docId" value="#{rol.doc_id}" style="font-size: 12px" />
+                                        </ace:column>
+
+                                    <ace:column filterBy="#{rol.doc_descripcion}" headerText="Descripción" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="docDescripcion" value="#{rol.doc_descripcion}" style="font-size: 12px" />
+                                        </ace:column>
+                                                 
+                                                 <ace:column filterBy="#{rol.doc_eqp}" headerText="Equiparación" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="docDescripcion2" value="#{rol.doc_eqp}" style="font-size: 12px" />
+                                        </ace:column>
+                                        <ace:column filterBy="#{rol.doc_eqv}" headerText="Equivalencia" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                            <h:outputText id="docDescripcion3" value="#{rol.doc_eqv}" style="font-size: 12px" />
+                                        </ace:column>
+                               
+                                                <ace:column style="width:4%">
+                                                <h:commandLink id="btnModificar" action="#{DocumentosController.abrirFormModificar()}"   title="Actualizar" value="Actualizar" style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                                                    <f:setPropertyActionListener value="#{rol}" target="#{DocumentosController.selected}" />  
+                                                    <f:setPropertyActionListener value="#{2}" target="#{DocumentosController.p_opcion}" />  
+                                                </h:commandLink>  
+                                            </ace:column> 
+
+                                            
+                                            
+                                            
+                                            
+                                            
+          <ace:column style="width:4%">  
+              <h:commandLink id="btnEliminar"  action="#{DocumentosController.abrirFormEliminar()}"     value="Eliminar" title="Eliminar" style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                  <f:setPropertyActionListener value="#{rol}" target="#{DocumentosController.selected}" />  
+                                              
+
+                                            </h:commandLink>  
+
+ 
+                                        </ace:column>  
+        
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                
+                                </ace:dataTable>  
+                                
+                               
+                            </h:panelGrid>  
+
+                             </div>
+
+                              <ace:dialog  id="dialogoDocumentos" header="Información Apelaciones"  resizable="false"  
+                                          closable="false"
+                                           width="600"   showEffect="clip" hideEffect="fold"   
+                                           visible="#{DocumentosController.visibleForm}" modal="true">  
+
+                                    <h:panelGrid id="panelInfoDocumentos" columns="2" cellpadding="4">
+
+                                        <h:outputLabel for="txtDescripcion" value="Descripción:" />                                
+                                        <h:inputTextarea id="txtDescripcion" label="Descripcion" value="#{DocumentosController.selected.doc_descripcion}" />
+                                        
+                                        <h:outputLabel value="Pertenece a:" />                                
+                                        <h:outputLabel value=" " />                                
+
+                                        <h:selectBooleanCheckbox value="#{DocumentosController.selected.doc_eqp}"  label ="Equiparación"> 
+                                        <h:outputLabel value="Equiparación" />                                
+</h:selectBooleanCheckbox>
+                                        <h:selectBooleanCheckbox value="#{DocumentosController.selected.doc_eqv}" label="Equivalencia" >  
+ <h:outputLabel value="Equivalencia" />                                
+</h:selectBooleanCheckbox>
+                                    </h:panelGrid>  
+
+                                         <div align="center">
+                                            <ace:pushButton id="btnModificar" action="#{DocumentosController.guardar()}"  value="Guardar"/>                 
+                                            <ace:pushButton id="btnSalir"    action="#{DocumentosController.actionCancelarAddDocumento()}" value="Regresar"/>                                                        
+                                       
+                                         </div>
+                                  <h:messages id="messages" showDetail="true"    style="#{DocumentosController.colorMensage}"  />            
+
+                                </ace:dialog> 
+
+ 
+
+                            </ace:tabPane>
+                                                    </ace:tabSet>
+
+
+
+ 
+ <ace:dialog  header="Eliminar Documento"  id="dialogoConfirmacion"   resizable="false"  
+                                                     width="700" showEffect="clip" hideEffect="fold" closable="false"
+                                                     visible="#{DocumentosController.visibleFormEliminar}" modal="true"  >
+ 
+                                                <div align="center">
+
+                          <h:outputLabel id="firstNameLabel" for="firstNameInputField" value="Está seguro que desea eliminar el registro?"/>
+
+                                    <ace:pushButton value="Si"  action="#{DocumentosController.eliminar()}"  
+                                               />
+                                    <ace:pushButton value="No"  action="#{DocumentosController.actionCancelarEliminarDocumento()}"   type="button" />
+                                </div>
+                            </ace:dialog>  
+
+                        </div>
+
+                    
+                </h:form>
+
+            </div>
+        </div>
+    </h:body> 
+</html>

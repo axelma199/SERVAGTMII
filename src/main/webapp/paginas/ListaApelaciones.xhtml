@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <h:head>
+        <title>Universidad Nacional</title>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="styleSheet" type="text/css"/> 
+        <!--**********************************************************************************************************-->
+        <!--*******************************************   ENCABEZADO    **********************************************-->
+        <!--**********************************************************************************************************-->
+        <div class="header">
+            <div class="alinear">
+                <ui:include src="../cr.ac.una.reg.info.templates/header.xhtml"/>
+            </div>
+        </div>   
+
+    </h:head>
+    <h:body>
+        <div id="page" class="container">
+            <div id="marketing">
+                   <ui:include src="menuPaginas.xhtml"/>
+            
+            </div>
+
+
+   <div class="section">
+                    <h:form id="form">
+                        <div align="center">                                 
+
+                            <h:panelGrid id="panelgridApelaciones" columns="2" cellpadding="5">
+
+
+                                
+                                <ace:dataTable id="tablaRol" var="rolApelaciones" value="#{ApelacionController.listaApelaciones}"
+                                                  emptyMessage="No hay Documentos similares" 
+                                                 selectionMode="single"  
+                                                 filterValue="#{DocumentosController.filtroDocumentosDisponible}"
+                                                 paginator="true" rows="5" style="width:950px;"> 
+                                                                                 rowKey="#{rolApelaciones.apel_sol_numero}"
+
+                                
+                                     <f:facet name="header"> 
+                                        <div align="left"> 
+                                            <ace:pushButton id="btnInsertar"  title="Insertar Nuevo"  style="width: 30px; height: 30px;" onclick="InsertaApelacion.show()"  rendered="#{ApelacionController.modoAdministrador}"/>
+                                        </div>
+                                    </f:facet>  
+                                    
+                                    
+                                    <ace:column filterBy="#{rolApelaciones.apel_codApelar}" headerText="Solicitud Apelada" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                        <h:outputText id="solApelada" value="#{rolApelaciones.apel_codApelar}" style="font-size: 12px" />
+                                        </ace:column>
+                                    
+                                     <ace:column filterBy="#{rolApelaciones.apelId}" headerText="Identificación" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                        <h:outputText id="solIdentificacion" value="#{rolApelaciones.apelId}" style="font-size: 12px" />
+                                        </ace:column>
+                                    
+                                    <ace:column filterBy="#{rolApelaciones.apelNombre}" headerText="Nombre" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:5"  >
+                                        <h:outputText id="solNombre" value="#{rolApelaciones.apelNombre}" style="font-size: 12px" />
+                                     </ace:column>
+                                    
+
+                                    <ace:column filterBy="#{rolApelaciones.apel_tipo}" headerText="Tipo Apelacion" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="TipoApelacion" value="#{rolApelaciones.apel_tipo}" style="font-size: 12px" />
+                                        </ace:column>
+                                    
+                                     <ace:column filterBy="#{rolApelaciones.apel_estado_desc}" headerText="Estado" footerText="" filterMatchMode="contains" filterStyle="display:true" style="width:10" >
+                                        <h:outputText id="estadoApel" value="#{rolApelaciones.apel_estado_desc}" style="font-size: 12px" />
+                                        </ace:column>
+                                    
+                                    
+                                                                   
+                                    <ace:column style="width:4%" rendered="#{ApelacionController.modoAdministrador}">
+                                                <h:commandLink id="btnModificar" action="#{UniversidadController.mostrarDialogModoficarSolicitante()}"   title="Actualizar" value="Actualizar" style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                                            <f:setPropertyActionListener value="#{rolApelaciones}" target="#{ApelacionController.selected}" />                                               
+                                        </h:commandLink>  
+                                    </ace:column> 
+
+                                    <ace:column style="width:4%" rendered="#{ApelacionController.modoAdministrador}">
+              <h:commandLink id="btnEliminar"  action="#{UniversidadController.mostrarDialogEliminarUniversidad()}"     value="Eliminar" title="Eliminar" style="font-size:12px;text-decoration: underline;color: #045491;font-weight: bold;">  
+                                            <f:setPropertyActionListener value="#{rolApelaciones}" target="#{ApelacionController.selected}" />  
+                                        </h:commandLink>  
+                                     </ace:column> 
+                                    
+                                      </ace:dataTable> 
+                                    
+                                
+                                
+                                
+                                <ace:dialog  id="InsertaApelacion" header="Información Apelaciones" resizable="false"  
+                                           width="450" showEffect="clip" hideEffect="fold">  
+
+                                    <h:panelGrid id="panelInsertaApelacion" columns="2" cellpadding="4">
+
+                                        <h:outputLabel for="txtApelar" value="Solicitud Apelar:"/>
+                                        <h:inputText id="txtApelar" label="Apelar2" value="#{ApelacionController.apelacionesBean.apel_codApelar}" />
+
+                                        <h:outputLabel value="Tipo de Apelacion" />                                
+                                        <h:selectOneMenu id="cb_tipoApelacion"  value="#{ApelacionController.apelacionesBean.apel_tipo}">
+                                            <f:selectItems value="#{ApelacionController.tipoApelacionSelecionada}"></f:selectItems>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel for="txtObservaciones" value="Observaciones:" />                                
+                                        <h:inputTextarea id="txtObservaciones" label="Obsercaciones" value="#{ApelacionController.apelacionesBean.apel_Observaciones}"  />
+
+                                    </h:panelGrid>  
+
+                                    <f:facet name="footer"> 
+                                        <div align="center">
+                                            <ace:pushButton id="btnGuardar" action="#{ApelacionController.guardar()}"  value="Guardar"/>                 
+                                        </div>
+                                    </f:facet> 
+
+                                </ace:dialog> 
+
+
+                                <ace:dialog  id="dialogoApelacion" header="Información Apelaciones" resizable="false"  
+                                           width="450" showEffect="clip" hideEffect="fold">  
+
+                                    <h:panelGrid id="panelInfoApelacion" columns="2" cellpadding="4">
+
+                                        <h:outputLabel for="txtApelar2" value="Solicitud Apelar:"/>
+                                        <h:outputLabel id="txtApelar2" value="#{ApelacionController.selected.apel_codApelar}" />
+                                        
+                                        <h:outputLabel for="txtNumero" value="Numero Sesion:"/>
+                                        <h:inputText id="txtNumero" label="numero" value="#{ApelacionController.selected.apel_num_sesion}" />
+                                        
+                                        <h:outputText value="Fecha de Sesion:" />  
+                                        <ace:dateTimeEntry id="fechaSesion" effect="slide" value="#{ApelacionController.fecha}" /> 
+
+                                        <h:outputLabel value="Tipo de Apelacion2" />                                
+                                        <h:selectOneMenu id="cb_tipoApelacion2"  value="#{ApelacionController.selected.apel_tipo}">
+                                            <f:selectItems value="#{ApelacionController.tipoApelacionSelecionada}"></f:selectItems>
+                                        </h:selectOneMenu>
+                                        
+                                        <h:outputLabel value="Estado:" />                                
+                                        <h:selectOneMenu id="cb_estado" value="#{ApelacionController.selected.apel_estado_apel}" > 
+                                            <f:selectItem itemLabel="Resuelto" itemValue="1" />  
+                                            <f:selectItem itemLabel="En tramite" itemValue="0" />                                   
+                                        </h:selectOneMenu> 
+
+                                        <h:outputLabel for="txtObservaciones2" value="Observaciones:" />                                
+                                        <h:inputTextarea id="txtObservaciones2" label="Obsercaciones" value="#{ApelacionController.selected.apel_Observaciones}" />
+
+                                    </h:panelGrid>  
+
+                                    <f:facet name="footer"> 
+                                        <div align="center">
+                                            <ace:pushButton id="btnModificar" action="#{ApelacionController.modificar()}"  value="Guardar"/>                 
+                                        </div>
+                                    </f:facet> 
+
+                                </ace:dialog> 
+                                
+                                
+
+
+                            </h:panelGrid>  
+
+                            <ace:dialog>
+                                <div align="center">
+                                    <ace:pushButton value="Si"  actionListener="#{ApelacionController.eliminar}"  
+                                                      />
+                                    <ace:pushButton value="No" onclick="eliminarApelacion.hide();"  />
+                                </div>
+                            </ace:dialog>  
+
+
+
+
+
+                        </div>
+
+                        <div id="form1:messages" class="ui-messages ui-widget" aria-live="polite"></div>
+
+                    </h:form>
+                </div>
+ 
+        </div>
+    </h:body> 
+</html>
